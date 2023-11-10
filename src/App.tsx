@@ -33,28 +33,31 @@ function App() {
     remove && setText("");
   };
 
-  console.log(show);
-
   return (
     <>
-      <div className="wrapper lg:w-3/4 w-full px-4 mx-auto mt-10">
+      <div className="wrapper lg:w-3/4 w-full px-4 mx-auto my-6">
         <div className="container lg:w-2/3 border p-5 mx-auto rounded-md">
           <h1 className="text-4xl font-bold text-center mb-2">
             Random Name Picker
           </h1>
-          <textarea
-            name=""
-            id=""
-            cols={30}
-            rows={10}
-            placeholder="Each name must be added on a new line or separated by a comma."
-            className="w-full border p-4"
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          ></textarea>
-          <p>{show[0]}</p>
+          <div className="my-5">
+            <label htmlFor="" className="block mb-2">
+              Each name must be added on a new line or separated by a comma.
+            </label>
+            <textarea
+              name=""
+              id=""
+              cols={30}
+              rows={10}
+              placeholder="Each name must be added on a new line or separated by a comma."
+              className="w-full border  p-4 focus:outline-none rounded-md focus:ring-4 focus:ring-sky-100"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            ></textarea>
+          </div>
+          <p>{show && show[0]}</p>
           <button
             className="my-2 hover:text-red-500"
             onClick={() => {
