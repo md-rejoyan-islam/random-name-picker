@@ -1,14 +1,18 @@
 import { useState } from "react";
 
 import "./App.css";
+import Modal from "./Modal";
 
 function App() {
   const [text, setText] = useState<string>("");
   const [show, setShow] = useState<string[]>();
+  const [count, setCount] = useState<number>(0);
 
   const [winners, setWinners] = useState<number>(1);
   const [remove, setRemove] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(true);
+
+  const [modal, setModal] = useState<boolean>(false);
 
   // console.log(winners);
 
@@ -17,6 +21,14 @@ function App() {
       .replace(/\s+/g, ",")
       .replace(/,+/g, ",")
       .split(",");
+
+    setCount(array.length);
+
+    // if (filter) {
+    //   const unique = [...new Set(array)];
+    //   array.length = 0;
+    //   array.push(...unique);
+    // }
 
     const inter = setInterval(() => {
       for (let i = 1; i <= winners; i++) {
@@ -31,12 +43,13 @@ function App() {
     }, 200 * array.length);
 
     remove && setText("");
+    setModal(true);
   };
 
   return (
     <>
-      <div className="wrapper lg:w-3/4 w-full px-4 mx-auto my-6">
-        <div className="container lg:w-2/3 border p-5 mx-auto rounded-md">
+      <div className="wrapper w-full px-4 mx-auto py-10 h-screen overflow-y-auto  overflow-hidden">
+        <div className="container lg:w-3/5 border p-5 mx-auto rounded-md">
           <h1 className="text-4xl font-bold text-center mb-2">
             Random Name Picker
           </h1>
@@ -128,6 +141,7 @@ function App() {
           </div>
         </div>
       </div>
+      {modal && <Modal show={show} count={count} setModal={setModal} />}
     </>
   );
 }
