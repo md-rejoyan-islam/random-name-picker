@@ -8,4 +8,4 @@
 
 ### Live Preview
 
-<a href="">preview</a>
+<a href="https://reactjs-random-name-picker.netlify.app/">preview</a>
