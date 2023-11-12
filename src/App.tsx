@@ -3,47 +3,77 @@ import { useState } from "react";
 import "./App.css";
 import Modal from "./Modal";
 
+import { optionsType } from "./types";
+import toast, { Toaster } from "react-hot-toast";
+
 function App() {
-  const [text, setText] = useState<string>("");
-  const [show, setShow] = useState<string[]>();
-  const [count, setCount] = useState<number>(0);
+  const [options, setOptions] = useState<optionsType>({
+    text: "",
+    nameArray: [],
+    shuffleResultShow: "",
+    namesCount: 0,
+    winners: [],
+    numberOfWinners: 1,
+    remove: false,
+    filter: true,
+    modal: false,
+    finished: false,
+  });
 
-  const [winners, setWinners] = useState<number>(1);
-  const [remove, setRemove] = useState<boolean>(false);
-  const [filter, setFilter] = useState<boolean>(true);
-
-  const [modal, setModal] = useState<boolean>(false);
-
-  // console.log(winners);
-
+  // handle result
   const handleResult = () => {
-    const array = String(text)
-      .replace(/\s+/g, ",")
-      .replace(/,+/g, ",")
-      .split(",");
+    setOptions((prev) => {
+      return { ...prev, finished: false };
+    });
 
-    setCount(array.length);
+    // winner and name count
+    if (options.numberOfWinners > options.namesCount) {
+      console.log(options.numberOfWinners, options.namesCount);
 
-    // if (filter) {
-    //   const unique = [...new Set(array)];
-    //   array.length = 0;
-    //   array.push(...unique);
-    // }
+      toast.error("Number of winners must be less than names count");
+      return;
+    }
 
     const inter = setInterval(() => {
-      for (let i = 1; i <= winners; i++) {
-        const random1 = Math.floor(Math.random() * array.length);
-        const random2 = Math.floor(Math.random() * array.length);
-        setShow([array[random1], array[random2]]);
+      for (let i = 1; i <= options.numberOfWinners; i++) {
+        const random = Math.floor(Math.random() * options.namesCount);
+        setOptions((prev) => {
+          return { ...prev, shuffleResultShow: options.nameArray[random] };
+        });
       }
     }, 40);
 
+    const newWinners: string[] = [];
+    // winners selection
+    for (let i = 1; i <= options.numberOfWinners; i++) {
+      const random = Math.floor(Math.random() * options.namesCount);
+      const randomName = options.nameArray[random];
+
+      if (newWinners.includes(randomName)) {
+        i--;
+        continue;
+      }
+      newWinners.push(randomName);
+    }
+
+    setOptions((prev) => {
+      return { ...prev, winners: newWinners };
+    });
     setTimeout(() => {
       clearInterval(inter);
-    }, 200 * array.length);
+      setOptions((prev) => {
+        return { ...prev, finished: true };
+      });
+    }, 200 * options.namesCount);
 
-    remove && setText("");
-    setModal(true);
+    options.remove &&
+      setOptions((prev) => {
+        return { ...prev, text: "", namesCount: 0, nameArray: [] };
+      });
+
+    setOptions((prev) => {
+      return { ...prev, modal: true };
+    });
   };
 
   return (
@@ -64,17 +94,42 @@ function App() {
               rows={10}
               placeholder="Each name must be added on a new line or separated by a comma."
               className="w-full border  p-4 focus:outline-none rounded-md focus:ring-4 focus:ring-sky-100"
-              value={text}
+              value={options.text}
+              onKeyUp={(e) => {
+                const array =
+                  e.currentTarget.textContent &&
+                  e.currentTarget.innerHTML
+                    .replace(/\n+/g, ",")
+                    .replace(/\s+/g, " ")
+                    .replace(/,+/g, ",")
+                    .split(",")
+                    .filter((name) => name != "");
+                setOptions((prev) => {
+                  return {
+                    ...prev,
+                    namesCount: array ? array.length : 0,
+                    nameArray: array ? array : [],
+                  };
+                });
+              }}
               onChange={(e) => {
-                setText(e.target.value);
+                setOptions((prev) => {
+                  return { ...prev, text: e.target.value };
+                });
               }}
             ></textarea>
           </div>
-          <p>{show && show[0]}</p>
+          <div>
+            <span className="py-2 px-4 bg-zinc-500 rounded-sm text-white">
+              Amount : {options.namesCount}
+            </span>
+          </div>
           <button
             className="my-2 hover:text-red-500"
             onClick={() => {
-              setText("");
+              setOptions((prev) => {
+                return { ...prev, text: "", namesCount: 0, nameArray: [] };
+              });
             }}
           >
             Remove all names from list <span className="text-red-500">X</span>
@@ -90,7 +145,9 @@ function App() {
                 id="winners"
                 className="w-full py-2 px-4  rounded-sm"
                 onChange={(e) => {
-                  setWinners(Number(e.target.value));
+                  setOptions((prev) => {
+                    return { ...prev, numberOfWinners: Number(e.target.value) };
+                  });
                 }}
               >
                 <option value="1">1</option>
@@ -107,8 +164,10 @@ function App() {
                   type="checkbox"
                   name="remove"
                   id=""
-                  onClick={() => {
-                    setRemove(!remove);
+                  onChange={() => {
+                    setOptions((prev) => {
+                      return { ...prev, remove: !options.remove };
+                    });
                   }}
                 />
                 <span className="ml-2">
@@ -122,9 +181,11 @@ function App() {
                   type="checkbox"
                   name="remove"
                   id=""
-                  checked={filter}
-                  onClick={() => {
-                    setFilter(!filter);
+                  checked={options.filter}
+                  onChange={() => {
+                    setOptions((prev) => {
+                      return { ...prev, filter: !options.filter };
+                    });
                   }}
                 />
                 <span className="ml-2">Filter duplicate names</span>
@@ -132,8 +193,9 @@ function App() {
             </div>
             <div>
               <button
-                className="w-full border py-2 font-semibold bg-violet-500 text-white rounded-md"
+                className="w-full border disabled:bg-zinc-200 py-2 font-semibold bg-violet-500 text-white rounded-md"
                 onClick={handleResult}
+                disabled={options.text.length < 2}
               >
                 Pick random name
               </button>
@@ -141,7 +203,16 @@ function App() {
           </div>
         </div>
       </div>
-      {modal && <Modal show={show} count={count} setModal={setModal} />}
+      {options.modal && (
+        <Modal
+          shuffle={options.shuffleResultShow}
+          winners={options.winners}
+          setOptions={setOptions}
+          finished={options.finished}
+          totalNames={options.namesCount}
+        />
+      )}
+      <Toaster />
     </>
   );
 }

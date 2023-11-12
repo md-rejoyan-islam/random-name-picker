@@ -1,6 +1,18 @@
-const Modal = ({ show, count, setModal }) => {
+const Modal = ({
+  shuffle,
+  winners,
+  finished,
+  setOptions,
+  totalNames,
+}: {
+  shuffle: string;
+  winners: string[];
+  finished: boolean;
+  totalNames: number;
+  setOptions: any;
+}) => {
   return (
-    <div className="h-screen overflow-hidden w-full bg-zinc-400 top-0 left-0 absolute">
+    <div className="h-screen overflow-hidden w-full bg-[#48b4ad98] top-0 left-0 absolute">
       <div className="flex h-full items-center w-full justify-center">
         <div className="card flex-1 h-fit max-w-[550px] p-5 bg-white rounded-md">
           <div>
@@ -9,7 +21,10 @@ const Modal = ({ show, count, setModal }) => {
               <button
                 className="bg-red-200 py-2 px-3 rounded-md hover:bg-red-400"
                 onClick={() => {
-                  setModal(false);
+                  setOptions((prev: any) => {
+                    return { ...prev, modal: false };
+                  });
+                  // setModal(false);
                 }}
               >
                 X
@@ -70,16 +85,23 @@ const Modal = ({ show, count, setModal }) => {
               </svg>
             </span>
             <h1 className="font-bold text-xl text-center">Winner</h1>
-
+            {!finished && <span className="">{shuffle}</span>}
+            <span>{winners.length}</span>
             <div className="winner">
-              <ol className=" list-decimal list-inside text-center">
-                <li className="">{show}</li>
-                {/* <li className="">RRRRR</li> */}
-              </ol>
+              {finished && (
+                <ol className=" list-decimal list-inside text-center">
+                  {winners.map((winner, index) => (
+                    <li className="" key={index}>
+                      {winner}
+                    </li>
+                  ))}
+                  {/* <li className="">RRRRR</li> */}
+                </ol>
+              )}
             </div>
           </div>
           <div>
-            <p className="text-xl">Number of names : {count} </p>
+            <p className="text-xl">Number of names : {totalNames} </p>
             <p className="text-xl">Draw Date : </p>
           </div>
         </div>
