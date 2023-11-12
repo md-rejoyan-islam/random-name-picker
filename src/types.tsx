@@ -1,4 +1,4 @@
-export interface optionsType {
+export interface OptionsType {
   winners: string[];
   shuffleResultShow: string;
   numberOfWinners: number;
@@ -16,5 +16,5 @@ export interface ModelProps {
   winners: string[];
   finished: boolean;
   totalNames: number;
-  setOptions: React.Dispatch<React.SetStateAction<optionsType>>;
+  setOptions: React.Dispatch<React.SetStateAction<OptionsType>>;
 }

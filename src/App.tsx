@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./App.css";
 import Modal from "./Modal";
 
-import { optionsType } from "./types";
+import { OptionsType } from "./types";
 import toast, { Toaster } from "react-hot-toast";
 
 function App() {
-  const [options, setOptions] = useState<optionsType>({
+  const [options, setOptions] = useState<OptionsType>({
     text: "",
     nameArray: [],
     shuffleResultShow: "",
