@@ -1,3 +1,5 @@
+import { optionsType } from "./types";
+
 const Modal = ({
   shuffle,
   winners,
@@ -9,7 +11,7 @@ const Modal = ({
   winners: string[];
   finished: boolean;
   totalNames: number;
-  setOptions: any;
+  setOptions: React.Dispatch<React.SetStateAction<optionsType>>;
 }) => {
   return (
     <div className="h-screen overflow-hidden w-full bg-[#48b4ad98] top-0 left-0 absolute">
