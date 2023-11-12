@@ -3,6 +3,8 @@
 ### Using
 
 - React JS
+- Tailwind CSS
+- TypeScript
 
 ### Live Preview
 
