@@ -1,4 +1,4 @@
-import { optionsType } from "./types";
+import { ModelProps } from "./types";
 
 const Modal = ({
   shuffle,
@@ -6,13 +6,7 @@ const Modal = ({
   finished,
   setOptions,
   totalNames,
-}: {
-  shuffle: string;
-  winners: string[];
-  finished: boolean;
-  totalNames: number;
-  setOptions: React.Dispatch<React.SetStateAction<optionsType>>;
-}) => {
+}: ModelProps) => {
   return (
     <div className="h-screen overflow-hidden w-full bg-[#48b4ad98] top-0 left-0 absolute">
       <div className="flex h-full items-center w-full justify-center">

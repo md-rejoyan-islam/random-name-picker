@@ -10,3 +10,11 @@ export interface optionsType {
   nameArray: string[];
   text: string;
 }
+
+export interface ModelProps {
+  shuffle: string;
+  winners: string[];
+  finished: boolean;
+  totalNames: number;
+  setOptions: React.Dispatch<React.SetStateAction<optionsType>>;
+}
