@@ -8,7 +8,7 @@ const Modal = ({
   totalNames,
 }: ModelProps) => {
   return (
-    <div className="h-screen overflow-hidden w-full bg-[#48b4ad98] top-0 left-0 absolute">
+    <div className="h-screen overflow-hidden w-full bg-[#48b4ad98] top-0 left-0 absolute px-8">
       <div className="flex h-full items-center w-full justify-center">
         <div className="card flex-1 h-fit max-w-[550px] p-5 bg-white rounded-md">
           <div>
@@ -89,7 +89,6 @@ const Modal = ({
                       {winner}
                     </li>
                   ))}
-                  {/* <li className="">RRRRR</li> */}
                 </ol>
               )}
             </div>
