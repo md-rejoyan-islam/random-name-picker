@@ -12,15 +12,14 @@ const Modal = ({
       <div className="flex h-full items-center w-full justify-center">
         <div className="card flex-1 h-fit max-w-[550px] p-5 bg-white rounded-md">
           <div>
-            {/* cross  */}
+            {/* cross  button */}
             <div className="flex justify-end">
               <button
                 className="bg-red-200 py-2 px-3 rounded-md hover:bg-red-400"
                 onClick={() => {
-                  setOptions((prev: any) => {
+                  setOptions((prev) => {
                     return { ...prev, modal: false };
                   });
-                  // setModal(false);
                 }}
               >
                 X
@@ -81,13 +80,12 @@ const Modal = ({
               </svg>
             </span>
             <h1 className="font-bold text-xl text-center">Winner</h1>
-            {!finished && <span className="">{shuffle}</span>}
-            <span>{winners.length}</span>
-            <div className="winner">
+            {!finished && <span className="text-center block">{shuffle}</span>}
+            <div className="winner my-2">
               {finished && (
                 <ol className=" list-decimal list-inside text-center">
                   {winners.map((winner, index) => (
-                    <li className="" key={index}>
+                    <li className="text-xl" key={index}>
                       {winner}
                     </li>
                   ))}
@@ -97,8 +95,9 @@ const Modal = ({
             </div>
           </div>
           <div>
-            <p className="text-xl">Number of names : {totalNames} </p>
-            <p className="text-xl">Draw Date : </p>
+            <p className="text-xl">
+              <b>Number of names :</b> {totalNames}{" "}
+            </p>
           </div>
         </div>
       </div>
