@@ -5,6 +5,8 @@ import Modal from "./Modal";
 
 import { OptionsType } from "./types";
 import toast, { Toaster } from "react-hot-toast";
+import SelectBox from "./components/SelectBox";
+import RemoveBtn from "./components/RemoveBtn";
 
 function App() {
   const [options, setOptions] = useState<OptionsType>({
@@ -84,16 +86,14 @@ function App() {
             Random Name Picker
           </h1>
           <div className="my-5">
-            <label htmlFor="" className="block mb-2">
+            <label htmlFor="" className="block mb-2 text-xl">
               Each name must be added on a new line or separated by a comma.
             </label>
             <textarea
-              name=""
-              id=""
               cols={30}
               rows={10}
               placeholder="Each name must be added on a new line or separated by a comma."
-              className="w-full border  p-4 focus:outline-none rounded-md focus:ring-4 focus:ring-sky-100"
+              className="w-full border text-[17px]  p-4 focus:outline-none rounded-md focus:ring-4 focus:ring-sky-100"
               value={options.text}
               onKeyUp={(e) => {
                 const array =
@@ -119,45 +119,15 @@ function App() {
               }}
             ></textarea>
           </div>
-          <div>
+          <div className="flex justify-between items-center  flex-wrap gap-4">
             <span className="py-2 px-4 bg-zinc-500 rounded-sm text-white">
               Amount : {options.namesCount}
             </span>
+            <RemoveBtn setOptions={setOptions} />
           </div>
-          <button
-            className="my-2 hover:text-red-500"
-            onClick={() => {
-              setOptions((prev) => {
-                return { ...prev, text: "", namesCount: 0, nameArray: [] };
-              });
-            }}
-          >
-            Remove all names from list <span className="text-red-500">X</span>
-          </button>
 
           <div className="my-5">
-            <div>
-              <label htmlFor="winners" className="block py-1">
-                Number of Winners
-              </label>
-              <select
-                name=""
-                id="winners"
-                className="w-full py-2 px-4  rounded-sm"
-                onChange={(e) => {
-                  setOptions((prev) => {
-                    return { ...prev, numberOfWinners: Number(e.target.value) };
-                  });
-                }}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-              </select>
-            </div>
+            <SelectBox setOptions={setOptions} />
             <div className="my-4">
               <label>
                 <input
@@ -180,7 +150,6 @@ function App() {
                 <input
                   type="checkbox"
                   name="remove"
-                  id=""
                   checked={options.filter}
                   onChange={() => {
                     setOptions((prev) => {
@@ -193,7 +162,7 @@ function App() {
             </div>
             <div>
               <button
-                className="w-full border disabled:bg-zinc-200 py-2 font-semibold bg-violet-500 text-white rounded-md"
+                className="w-full border disabled:bg-zinc-200 py-2 font-semibold bg-violet-500 hover:bg-violet-600 text-white rounded-md"
                 onClick={handleResult}
                 disabled={options.text.length < 2}
               >
