@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import "./App.css";
-import Modal from "./Modal";
+import Modal from "./components/modal/Modal";
 
 import { OptionsType } from "./types";
 import toast, { Toaster } from "react-hot-toast";
@@ -32,8 +32,6 @@ function App() {
 
     // winner and name count
     if (options.numberOfWinners > options.namesCount) {
-      console.log(options.numberOfWinners, options.namesCount);
-
       toast.error("Number of winners must be less than names count");
       return;
     }
@@ -107,7 +105,6 @@ function App() {
                 <input
                   type="checkbox"
                   name="remove"
-                  id=""
                   onChange={() => {
                     setOptions((prev) => {
                       return { ...prev, remove: !options.remove };
