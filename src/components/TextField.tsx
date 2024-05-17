@@ -16,7 +16,7 @@ function TextField({ options, setOptions }: TextFieldProps) {
             .replace(/\s+/g, " ")
             .replace(/,+/g, ",")
             .split(",")
-            .filter((name) => name != "");
+            .filter((name) => name != "" && name != " " && name != "  ");
         setOptions((prev) => {
           return {
             ...prev,
