@@ -81,7 +81,7 @@ function App() {
   return (
     <>
       <div className="wrapper w-full px-4 mx-auto py-10 h-screen overflow-y-auto  overflow-hidden">
-        <div className="container lg:w-3/5 border p-5 mx-auto rounded-md">
+        <div className="container lg:w-3/5 sm:border sm:p-5 mx-auto rounded-md">
           <h1 className="text-4xl font-bold text-center mb-2">
             Random Name Picker
           </h1>
