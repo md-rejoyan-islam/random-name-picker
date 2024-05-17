@@ -7,6 +7,8 @@ import { OptionsType } from "./types";
 import toast, { Toaster } from "react-hot-toast";
 import SelectBox from "./components/SelectBox";
 import RemoveBtn from "./components/RemoveBtn";
+import SubmitBtn from "./components/SubmitBtn";
+import TextField from "./components/TextField";
 
 function App() {
   const [options, setOptions] = useState<OptionsType>({
@@ -89,35 +91,7 @@ function App() {
             <label htmlFor="" className="block mb-2 text-xl">
               Each name must be added on a new line or separated by a comma.
             </label>
-            <textarea
-              cols={30}
-              rows={10}
-              placeholder="Each name must be added on a new line or separated by a comma."
-              className="w-full border text-[17px]  p-4 focus:outline-none rounded-md focus:ring-4 focus:ring-sky-100"
-              value={options.text}
-              onKeyUp={(e) => {
-                const array =
-                  e.currentTarget.textContent &&
-                  e.currentTarget.innerHTML
-                    .replace(/\n+/g, ",")
-                    .replace(/\s+/g, " ")
-                    .replace(/,+/g, ",")
-                    .split(",")
-                    .filter((name) => name != "");
-                setOptions((prev) => {
-                  return {
-                    ...prev,
-                    namesCount: array ? array.length : 0,
-                    nameArray: array ? array : [],
-                  };
-                });
-              }}
-              onChange={(e) => {
-                setOptions((prev) => {
-                  return { ...prev, text: e.target.value };
-                });
-              }}
-            ></textarea>
+            <TextField options={options} setOptions={setOptions} />
           </div>
           <div className="flex justify-between items-center  flex-wrap gap-4">
             <span className="py-2 px-4 bg-zinc-500 rounded-sm text-white">
@@ -161,13 +135,7 @@ function App() {
               </label>
             </div>
             <div>
-              <button
-                className="w-full border disabled:bg-zinc-200 py-2 font-semibold bg-violet-500 hover:bg-violet-600 text-white rounded-md"
-                onClick={handleResult}
-                disabled={options.text.length < 2}
-              >
-                Pick random name
-              </button>
+              <SubmitBtn handleResult={handleResult} options={options} />
             </div>
           </div>
         </div>
