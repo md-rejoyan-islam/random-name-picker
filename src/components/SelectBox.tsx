@@ -1,4 +1,6 @@
-function SelectBox({ setOptions }) {
+import { selectBtnProps } from "../types";
+
+function SelectBox({ setOptions }: selectBtnProps) {
   return (
     <div>
       <label htmlFor="winners" className="block py-1">

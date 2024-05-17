@@ -1,4 +1,6 @@
-function RemoveBtn({ setOptions }) {
+import { removeBtnProps } from "../types";
+
+function RemoveBtn({ setOptions }: removeBtnProps) {
   return (
     <button
       className="py-1 rounded-sm text-lg bg-red-400 hover:bg-red-500 px-2 text-white"

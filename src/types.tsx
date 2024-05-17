@@ -18,3 +18,21 @@ export interface ModelProps {
   totalNames: number;
   setOptions: React.Dispatch<React.SetStateAction<OptionsType>>;
 }
+
+export interface TextFieldProps {
+  options: OptionsType;
+  setOptions: React.Dispatch<React.SetStateAction<OptionsType>>;
+}
+
+export interface submitBtnProps {
+  handleResult: () => void;
+  options: OptionsType;
+}
+
+export interface removeBtnProps {
+  setOptions: React.Dispatch<React.SetStateAction<OptionsType>>;
+}
+
+export interface selectBtnProps {
+  setOptions: React.Dispatch<React.SetStateAction<OptionsType>>;
+}

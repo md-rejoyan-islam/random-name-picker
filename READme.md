@@ -1,4 +1,4 @@
-## Random Name Picker
+# Random Name Picker
 
 ### Description
 
